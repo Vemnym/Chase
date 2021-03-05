@@ -1,3 +1,23 @@
+import datetime
+
 from django.db import models
 
-# Create your models here.
+
+class User(models.Model):
+    name = models.CharField(max_length=30)
+    password = models.CharField(max_length=30)
+
+
+class ListUser(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class ListMessage(models.Model):
+    list_message = models.ForeignKey(ListUser, on_delete=models.CASCADE)
+
+
+class Message(models.Model):
+    message = models.TextField()
+    date_message = models.DateTimeField(default=datetime.now)
+    sender = models.ForeignKey(User)
+    recipient = models.ForeignKey(ListMessage)
