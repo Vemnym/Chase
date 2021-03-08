@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from django.db import models
 
@@ -18,6 +18,6 @@ class ListMessage(models.Model):
 
 class Message(models.Model):
     message = models.TextField()
-    date_message = models.DateTimeField(default=datetime.now)
-    sender = models.ForeignKey(User)
-    recipient = models.ForeignKey(ListMessage)
+    date_message = models.DateTimeField(default=datetime.now, blank=True)
+    sender = models.ForeignKey(User, on_delete=models.CASCADE)
+    recipient = models.ForeignKey(ListMessage, on_delete=models.CASCADE)
