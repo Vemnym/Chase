@@ -33,7 +33,7 @@ const formReducer = (state, event) => {
       <p id="loginMessage">Please Login!</p> */
 
 function App() {
-
+ // api Get test
   const[people, setPeople] = useState([])
   useEffect(() => {
         axios({
@@ -44,8 +44,11 @@ function App() {
         })
   }, []) // [] чтобы не запрос не повторялся
 
-
-  const [formData, setFormData] = useReducer(formReducer, {});
+ // обработка данных из формы
+  const [formData, setFormData] = useState({
+    name: '',
+    password: ''
+  });
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = event => {
@@ -55,6 +58,19 @@ function App() {
     setTimeout(() => {
       setSubmitting(false);
     }, 3000);
+
+    const username = "MitchWardle";
+    const password = "123456";
+
+
+    if (formData.name == "password" && formData.value == "123456") {
+        console.log("Password True");
+        }
+    else {
+        alert ("Login was unsuccessful, please check your username and password");
+        }
+
+
   }
 
   const handleChange = event => {
@@ -62,17 +78,20 @@ function App() {
       name: event.target.name,
       value: event.target.value,
     });
-  }
+}
+
 
 
   return (
     <div className="App">
       <h1>Test</h1>
+
       <ul>
         {people.map(p => (
             <li key={p.id}>{p.name}</li>
         ))}
       </ul>
+
 
       {submitting &&
        <div>
@@ -87,11 +106,13 @@ function App() {
         <form onSubmit={handleSubmit}>
         <fieldset>
           <label>
-            <p>Name</p>
-            <input name="name" onChange={handleChange}/>
+            <p>"Вход"</p>
+            <input name="name" placeholder="Имя" onChange={handleChange}/><br/>
+            <input name="password" placeholder="Пароль" onChange={handleChange}/><br/>
           </label>
+          <button type="submit">Отправить</button>
         </fieldset>
-        <button type="submit">Submit</button>
+
       </form>
 
     </div>
